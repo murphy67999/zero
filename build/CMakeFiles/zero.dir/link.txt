@@ -1,1 +1,0 @@
-/usr/bin/cc -Wl,--dependency-file=CMakeFiles/zero.dir/link.d CMakeFiles/zero.dir/src/main.c.o CMakeFiles/zero.dir/src/game.c.o CMakeFiles/zero.dir/src/player.c.o -o zero  /home/mirak/Documents/zero/raylib/lib/libraylib.a -lm -lX11
