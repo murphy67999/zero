@@ -1,0 +1,3 @@
+/home/mirak/Documents/zero/build/CMakeFiles/zero.dir
+/home/mirak/Documents/zero/build/CMakeFiles/edit_cache.dir
+/home/mirak/Documents/zero/build/CMakeFiles/rebuild_cache.dir
