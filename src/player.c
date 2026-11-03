@@ -15,7 +15,7 @@ void playerInit(struct Player *player)
         player->size * 2,
         player->size * 2};
 
-    gunInit(&player->gun, player->position, 0.2f, PLAYER);
+    gunInit(&player->gun, player->position, PLAYER);
 }
 
 void playerUpdate(struct Player *player)

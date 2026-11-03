@@ -34,7 +34,7 @@ void enemyInit(struct Enemy *enemy)
         enemy->color = GREEN;
         enemy->health = 2;
         enemy->hasGun = true;
-        gunInit(&enemy->gun, enemy->position, 0.4f, ENEMY);
+        gunInit(&enemy->gun, enemy->position, ENEMY);
         break;
     }
     enemy->isActive = true;

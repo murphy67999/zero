@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    struct Game game;
+    struct Game game = {0};
 
     gameRun(&game);
 }
