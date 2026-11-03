@@ -8,6 +8,10 @@ add_executable(zero
     src/main.c
     src/game.c
     src/player.c
+    src/enemy.c
+    src/bullet.c
+    src/gun.c
+    src/array.c
 )
 
 target_include_directories(zero PRIVATE
