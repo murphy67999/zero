@@ -1,11 +1,14 @@
 #include "player.h"
 
-void playerInit(struct Player *player)
+#include "config.h"
+#include <raymath.h>
+
+void player_init(struct Player *player)
 {
-    player->position = (Vector2){200.0f, 100.0f};
+    player->position = (Vector2){WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2};
     player->speed = 200.0f;
     player->size = 20.0f;
-    player->lineThickness = 4.0f;
+    player->line_thickness = 4.0f;
     player->color = SKYBLUE;
     player->health = 10;
 
@@ -15,49 +18,48 @@ void playerInit(struct Player *player)
         player->size * 2,
         player->size * 2};
 
-    gunInit(&player->gun, player->position, PLAYER);
+    gun_init(&player->gun, player->position, PLAYER);
 }
 
-void playerUpdate(struct Player *player)
+void player_update(struct Player *player)
 {
-    float finalSpeed = player->speed * GetFrameTime();
+    float final_speed = player->speed * GetFrameTime();
     if (IsKeyDown(KEY_W))
     {
-        player->position.y -= finalSpeed;
+        player->position.y -= final_speed;
     }
     if (IsKeyDown(KEY_S))
     {
-        player->position.y += finalSpeed;
+        player->position.y += final_speed;
     }
     if (IsKeyDown(KEY_A))
     {
-        player->position.x -= finalSpeed;
+        player->position.x -= final_speed;
     }
     if (IsKeyDown(KEY_D))
     {
-        player->position.x += finalSpeed;
+        player->position.x += final_speed;
     }
 
-    gunUpdate(&player->gun, player->position);
+    player->position.x = Clamp(player->position.x, 0, WINDOW_WIDTH);
+    player->position.y = Clamp(player->position.y, 0, WINDOW_HEIGHT);
 
     player->hitbox.x = player->position.x - player->size;
     player->hitbox.y = player->position.y - player->size;
 }
 
-void playerDraw(struct Player *player)
+void player_draw(const struct Player *player)
 {
-    Vector2 v1 = {player->position.x, player->position.y - 20};
-    Vector2 v2 = {player->position.x - 20, player->position.y + 20};
-    Vector2 v3 = {player->position.x + 20, player->position.y + 20};
+    Vector2 v1 = {player->position.x, player->position.y - player->size};
+    Vector2 v2 = {player->position.x - player->size, player->position.y + player->size};
+    Vector2 v3 = {player->position.x + player->size, player->position.y + player->size};
 
-    DrawLineEx(v1, v2, player->lineThickness, player->color);
-    DrawLineEx(v2, v3, player->lineThickness, player->color);
-    DrawLineEx(v3, v1, player->lineThickness, player->color);
-
-    DrawText(TextFormat("Health: %i", player->health), 20, 20, 30, SKYBLUE);
+    DrawLineEx(v1, v2, player->line_thickness, player->color);
+    DrawLineEx(v2, v3, player->line_thickness, player->color);
+    DrawLineEx(v3, v1, player->line_thickness, player->color);
 }
 
-void playerTakeDamage(struct Player *player)
+void player_take_damage(struct Player *player)
 {
     player->health -= 1;
 }

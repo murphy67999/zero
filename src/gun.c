@@ -1,68 +1,70 @@
 #include "gun.h"
 
-#include "game.h"
-
-void gunInit(struct Gun *gun, Vector2 position, enum Owner owner)
+void gun_init(struct Gun *gun, Vector2 position, enum Owner owner)
 {
     gun->position = position;
 
-    gun->straightReloadTime = 0.3f;
-    gun->straightReloadTimer = 0.0f;
-    gun->isStraightReloading = false;
+    gun->straight_reload_time = 0.3f;
+    gun->straight_reload_timer = 0.0f;
+    gun->is_straight_reloading = false;
 
-    gun->diagonalReloadTime = 1.0f;
-    gun->diagonalReloadTimer = 0.0f;
-    gun->isDiagonalReloading = false;
+    gun->diagonal_reload_time = 0.5f;
+    gun->diagonal_reload_timer = 0.0f;
+    gun->is_diagonal_reloading = false;
 
     gun->owner = owner;
 }
 
-void gunStraightShoot(struct Gun *gun, struct Game *game, Vector2 direction)
+bool gun_straight_shoot(struct Gun *gun, struct Bullet *bullet, Vector2 direction)
 {
-    if (gun->isStraightReloading)
-        return;
+    if (gun->is_straight_reloading)
+        return false;
 
-    gameSpawnBullet(game, gun->position, direction, gun->owner);
+    bullet_init(bullet, gun->position, direction, gun->owner);
 
-    gun->isStraightReloading = true;
+    gun->is_straight_reloading = true;
+
+    return true;
 }
 
-void gunDiagonalShoot(struct Gun *gun, struct Game *game)
+bool gun_diagonal_shoot(struct Gun *gun, struct Bullet bullets[4])
 {
-    if (gun->isDiagonalReloading)
-        return;
+    if (gun->is_diagonal_reloading)
+        return false;
 
-    gameSpawnBullet(game, gun->position, (Vector2){-1, -1}, gun->owner);
-    gameSpawnBullet(game, gun->position, (Vector2){1, -1}, gun->owner);
-    gameSpawnBullet(game, gun->position, (Vector2){-1, 1}, gun->owner);
-    gameSpawnBullet(game, gun->position, (Vector2){1, 1}, gun->owner);
+    bullet_init(&bullets[0], gun->position, (Vector2){-1, -1}, gun->owner);
+    bullet_init(&bullets[1], gun->position, (Vector2){1, 1}, gun->owner);
+    bullet_init(&bullets[2], gun->position, (Vector2){-1, 1}, gun->owner);
+    bullet_init(&bullets[3], gun->position, (Vector2){1, -1}, gun->owner);
 
-    gun->isDiagonalReloading = true;
+    gun->is_diagonal_reloading = true;
+
+    return true;
 }
 
-void gunUpdate(struct Gun *gun, Vector2 position)
+void gun_update(struct Gun *gun, Vector2 position)
 {
     gun->position = position;
 
-    if (gun->isStraightReloading)
+    if (gun->is_straight_reloading)
     {
-        gun->straightReloadTimer += GetFrameTime();
+        gun->straight_reload_timer += GetFrameTime();
 
-        if (gun->straightReloadTimer >= gun->straightReloadTime)
+        if (gun->straight_reload_timer >= gun->straight_reload_time)
         {
-            gun->isStraightReloading = false;
-            gun->straightReloadTimer = 0.0f;
+            gun->is_straight_reloading = false;
+            gun->straight_reload_timer = 0.0f;
         }
     }
 
-    if (gun->isDiagonalReloading)
+    if (gun->is_diagonal_reloading)
     {
-        gun->diagonalReloadTimer += GetFrameTime();
+        gun->diagonal_reload_timer += GetFrameTime();
 
-        if (gun->diagonalReloadTimer >= gun->diagonalReloadTime)
+        if (gun->diagonal_reload_timer >= gun->diagonal_reload_time)
         {
-            gun->isDiagonalReloading = false;
-            gun->diagonalReloadTimer = 0.0f;
+            gun->is_diagonal_reloading = false;
+            gun->diagonal_reload_timer = 0.0f;
         }
     }
 }

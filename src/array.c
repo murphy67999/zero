@@ -1,7 +1,7 @@
 #include "array.h"
 #include <string.h>
 
-void arrayRemove(void *array, int *count, int index, size_t elementSize)
+void array_remove(void *array, size_t *count, size_t index, size_t element_size)
 {
     if (index < 0 || index >= *count)
         return;
@@ -9,9 +9,9 @@ void arrayRemove(void *array, int *count, int index, size_t elementSize)
     char *elements = array;
 
     memmove(
-        elements + index * elementSize,
-        elements + (index + 1) * elementSize,
-        (*count - index - 1) * elementSize
+        elements + index * element_size,
+        elements + (index + 1) * element_size,
+        (*count - index - 1) * element_size
     );
 
     (*count)--;

@@ -3,6 +3,6 @@
 
 #include <stddef.h>
 
-void arrayRemove(void *array, int *count, int index, size_t elementSize);
+void array_remove(void *array, size_t *count, size_t index, size_t element_size);
 
 #endif

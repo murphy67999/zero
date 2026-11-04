@@ -1,8 +1,8 @@
-#include "game.h"
+#include "application.h"
 
 int main(void)
 {
-    struct Game game = {0};
+    struct Application app = {0};
 
-    gameRun(&game);
+    application_run(&app);
 }

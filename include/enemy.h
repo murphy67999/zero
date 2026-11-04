@@ -6,34 +6,33 @@
 
 enum EnemyType
 {
-    ENEMY_TRIANGLE,
-    ENEMY_SQUARE,
-    ENEMY_DIAMOND
+    ENEMY_RED,
+    ENEMY_ORANGE,
+    ENEMY_GREEN
 };
 
 struct Enemy
 {
-    struct Vector2 position;
+    Vector2 position;
     float speed;
 
     float size;
-    float lineThickness;
-    struct Color color;
+    float line_thickness;
+    Color color;
 
     enum EnemyType type;
 
     int health;
-    struct Rectangle hitbox;
-    bool isActive;
+    Rectangle hitbox;
+    bool is_active;
 
     struct Gun gun;
-    bool hasGun;
+    bool has_gun;
 };
 
-void enemyInit(struct Enemy *enemy);
-void enemySpawn(struct Enemy enemies[], int *enemyCount);
-void enemyUpdate(struct Enemy *enemy, Vector2 playerPos);
-void enemyDraw(struct Enemy *enemy);
-void enemyTakeDamage(struct Enemy *enemy);
+void enemy_init(struct Enemy *enemy, enum EnemyType type);
+void enemy_update(struct Enemy *enemy, Vector2 player_pos);
+void enemy_draw(const struct Enemy *enemy);
+void enemy_take_damage(struct Enemy *enemy);
 
 #endif

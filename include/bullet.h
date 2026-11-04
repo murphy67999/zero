@@ -6,25 +6,24 @@
 
 struct Bullet
 {
-    struct Vector2 position;
-    struct Vector2 direction;
+    Vector2 position;
+    Vector2 direction;
     float speed;
 
     float size;
-    float lineThickness;
-    struct Color color;
+    float line_thickness;
+    Color color;
 
-    float lifeTime;
+    float lifetime;
     float age;
-    float isActive;
-
+    bool is_active;
     enum Owner owner;
 
-    struct Rectangle hitbox;
+    Rectangle hitbox;
 };
 
-void bulletInit(struct Bullet *bullet, struct Vector2 position, struct Vector2 direction, enum Owner owner);
-void bulletUpdate(struct Bullet *bullet);
-void bulletDraw(struct Bullet *bullet);
+void bullet_init(struct Bullet *bullet, Vector2 position, Vector2 direction, enum Owner owner);
+void bullet_update(struct Bullet *bullet);
+void bullet_draw(const struct Bullet *bullet);
 
 #endif

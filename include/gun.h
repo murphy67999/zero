@@ -9,22 +9,20 @@ struct Gun
 {
     Vector2 position;
 
-    float straightReloadTime;
-    float straightReloadTimer;
-    bool isStraightReloading;
+    float straight_reload_time;
+    float straight_reload_timer;
+    bool is_straight_reloading;
 
-    float diagonalReloadTime;
-    float diagonalReloadTimer;
-    bool isDiagonalReloading;
+    float diagonal_reload_time;
+    float diagonal_reload_timer;
+    bool is_diagonal_reloading;
 
     enum Owner owner;
 };
 
-struct Game;
-
-void gunInit(struct Gun *gun, Vector2 position, enum Owner owner);
-void gunStraightShoot(struct Gun *gun, struct Game *game, Vector2 direction);
-void gunDiagonalShoot(struct Gun *gun, struct Game *game);
-void gunUpdate(struct Gun *gun, Vector2 position);
+void gun_init(struct Gun *gun, Vector2 position, enum Owner owner);
+bool gun_straight_shoot(struct Gun *gun, struct Bullet *bullet, Vector2 direction);
+bool gun_diagonal_shoot(struct Gun *gun, struct Bullet bullets[4]);
+void gun_update(struct Gun *gun, Vector2 position);
 
 #endif

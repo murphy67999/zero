@@ -6,22 +6,22 @@
 
 struct Player
 {
-    struct Vector2 position;
+    Vector2 position;
     float speed;
 
-    float lineThickness;
-    struct Color color;
+    float line_thickness;
+    Color color;
     float size;
 
     struct Gun gun;
-
-    struct Rectangle hitbox;
     int health;
+
+    Rectangle hitbox;
 };
 
-void playerInit(struct Player *player);
-void playerUpdate(struct Player *player);
-void playerDraw(struct Player *player);
-void playerTakeDamage(struct Player *player);
+void player_init(struct Player *player);
+void player_update(struct Player *player);
+void player_draw(const struct Player *player);
+void player_take_damage(struct Player *player);
 
 #endif
